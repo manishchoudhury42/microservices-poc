@@ -1,7 +1,6 @@
 package com.microservice.ratingService.RatingService.services.impl;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
