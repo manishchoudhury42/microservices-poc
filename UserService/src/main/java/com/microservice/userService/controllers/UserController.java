@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.userService.entities.User;
@@ -43,12 +44,26 @@ public class UserController {
 		User getUser = userService.getUser(id);
 		return ResponseEntity.ok(getUser);
 	}
-	
+
 	// delete user by id
 	@DeleteMapping("/{id}")
-	ResponseEntity<User> deleteUserById(@PathVariable String id){
+	ResponseEntity<User> deleteUserById(@PathVariable String id) {
 		User deletedUser = userService.deleteUser(id);
 		return ResponseEntity.status(HttpStatus.OK).body(deletedUser);
+	}
+
+	// get n users ----- procedure call
+	@GetMapping("/test/{n}")
+	ResponseEntity<List<User>> getNUsers(@PathVariable int n) {
+		List<User> nUsers = this.userService.getNUsers(n);
+		return ResponseEntity.ok(nUsers);
+	}
+
+	// insert into another table --- procedure call
+	@PostMapping("/test")
+	ResponseEntity<String> insertUser(@RequestParam String name, @RequestParam int age) {
+		this.userService.insertUser(name, age);
+		return ResponseEntity.ok("Inserted into table");
 	}
 
 }
